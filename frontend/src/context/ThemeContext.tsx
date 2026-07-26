@@ -31,34 +31,26 @@ import {
         return saved;
       }
   
-      return window.matchMedia("(prefers-color-scheme: dark)").matches
-        ? "dark"
-        : "light";
+      return "light";
     };
   
     const [theme, setTheme] = useState<Theme>(getInitialTheme);
   
     useEffect(() => {
-        console.log("Theme =", theme);
-      
-        document.documentElement.classList.toggle(
-          "dark",
-          theme === "dark"
-        );
-      
-        console.log(
-          "HTML classes:",
-          document.documentElement.className
-        );
-      
-        localStorage.setItem(STORAGE_KEY, theme);
-      }, [theme]);
+      document.documentElement.classList.toggle(
+        "dark",
+        theme === "dark"
+      );
+  
+      localStorage.setItem(STORAGE_KEY, theme);
+  
+      return () => {
+        document.documentElement.classList.remove("dark");
+      };
+    }, [theme]);
   
     const toggleTheme = () => {
-        console.log("toggleTheme() called");
-      setTheme((prev) =>
-        prev === "light" ? "dark" : "light"
-      );
+      setTheme((prev) => (prev === "light" ? "dark" : "light"));
     };
   
     const value = useMemo(
