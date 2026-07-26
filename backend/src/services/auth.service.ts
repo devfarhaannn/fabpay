@@ -5,6 +5,7 @@ import { generateToken } from "../utils/jwt.js";
 interface SignupInput {
   firstName: string;
   lastName: string;
+  username: string;
   email: string;
   password: string;
 }
@@ -16,14 +17,28 @@ interface SigninInput {
 
 export class AuthService {
   static async signup(data: SignupInput) {
-    const existingUser = await prisma.user.findUnique({
+    const username = data.username.trim().toLowerCase();
+    const email = data.email.trim().toLowerCase();
+
+    const existingUser = await prisma.user.findFirst({
       where: {
-        email: data.email,
+        OR: [
+          {
+            email,
+          },
+          {
+            username,
+          },
+        ],
       },
     });
 
     if (existingUser) {
-      throw new Error("User already exists");
+      if (existingUser.email === email) {
+        throw new Error("Email already exists");
+      }
+
+      throw new Error("Username already taken");
     }
 
     const hashedPassword = await hashPassword(data.password);
@@ -32,7 +47,8 @@ export class AuthService {
       data: {
         firstName: data.firstName,
         lastName: data.lastName,
-        email: data.email,
+        username,
+        email,
         password: hashedPassword,
 
         account: {
@@ -41,6 +57,7 @@ export class AuthService {
           },
         },
       },
+
       include: {
         account: true,
       },
@@ -48,7 +65,6 @@ export class AuthService {
 
     const token = generateToken(user.id);
 
-    // Remove password before sending response
     const { password, ...safeUser } = user;
 
     return {
@@ -60,8 +76,9 @@ export class AuthService {
   static async signin(data: SigninInput) {
     const user = await prisma.user.findUnique({
       where: {
-        email: data.email,
+        email: data.email.trim().toLowerCase(),
       },
+
       include: {
         account: true,
       },
@@ -82,7 +99,6 @@ export class AuthService {
 
     const token = generateToken(user.id);
 
-    // Remove password before sending response
     const { password, ...safeUser } = user;
 
     return {
@@ -96,6 +112,7 @@ export class AuthService {
       where: {
         id: userId,
       },
+
       include: {
         account: true,
       },
@@ -105,38 +122,37 @@ export class AuthService {
       throw new Error("User not found");
     }
 
-    // Remove password before sending response
     const { password, ...safeUser } = user;
 
     return safeUser;
   }
 
   static async updateProfile(
-  userId: string,
-  data: {
-    firstName: string;
-    lastName: string;
-    phone?: string;
-  }
-) {
-  const user = await prisma.user.update({
-    where: {
-      id: userId,
-    },
-
+    userId: string,
     data: {
-      firstName: data.firstName,
-      lastName: data.lastName,
-       phone: data.phone,
-    },
+      firstName: string;
+      lastName: string;
+      phone?: string;
+    }
+  ) {
+    const user = await prisma.user.update({
+      where: {
+        id: userId,
+      },
 
-    include: {
-      account: true,
-    },
-  });
+      data: {
+        firstName: data.firstName,
+        lastName: data.lastName,
+        phone: data.phone,
+      },
 
-  const { password, ...safeUser } = user;
+      include: {
+        account: true,
+      },
+    });
 
-  return safeUser;
-}
+    const { password, ...safeUser } = user;
+
+    return safeUser;
+  }
 }

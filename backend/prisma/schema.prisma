@@ -18,9 +18,14 @@ model User {
   id        String   @id @default(cuid())
   firstName String
   lastName  String
+
+  username  String   @unique
   email     String   @unique
   password  String
-  phone     String?
+
+  phone      String?
+  avatar     String?
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -29,8 +34,8 @@ model User {
   sentTransactions     Transaction[] @relation("SentTransactions")
   receivedTransactions Transaction[] @relation("ReceivedTransactions")
 
-  beneficiaries      Beneficiary[] @relation("OwnerBeneficiaries")
-  savedByUsers       Beneficiary[] @relation("SavedBeneficiary")
+  beneficiaries Beneficiary[] @relation("OwnerBeneficiaries")
+  savedByUsers  Beneficiary[] @relation("SavedBeneficiary")
 }
 
 model Account {

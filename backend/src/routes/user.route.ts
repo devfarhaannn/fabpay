@@ -11,4 +11,10 @@ router.get(
   UserController.search
 );
 
+router.patch(
+  "/change-password",
+  authMiddleware,
+  UserController.changePassword
+);
+
 export default router;

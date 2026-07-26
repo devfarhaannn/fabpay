@@ -4,6 +4,7 @@ import { AppearanceCard } from "../components/settings/AppearanceCard";
 import { NotificationCard } from "../components/settings/NotificationCard";
 import { PrivacyCard } from "../components/settings/PrivacyCard";
 import { DangerZone } from "../components/settings/DangerZone";
+import { SecurityCard } from "../components/profile/SecurityCard";
 
 export const Settings = () => {
   return (
@@ -16,6 +17,8 @@ export const Settings = () => {
         <NotificationCard />
 
         <PrivacyCard />
+
+        <SecurityCard/>
 
         <DangerZone />
 
