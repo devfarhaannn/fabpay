@@ -20,6 +20,7 @@ import {
   getAnalytics,
   type Analytics,
 } from "../../services/analytics.service";
+
 import { Skeleton } from "../common/Skeleton";
 
 const COLORS = [
@@ -38,7 +39,6 @@ export const AnalyticsCharts = () => {
     const fetchAnalytics = async () => {
       try {
         const data = await getAnalytics();
-
         setAnalytics(data);
       } catch (error) {
         console.error(error);
@@ -51,27 +51,42 @@ export const AnalyticsCharts = () => {
   }, []);
 
   if (loading) {
-  return (
-    <div className="grid gap-6 lg:grid-cols-2">
+    return (
+      <div className="grid gap-6 lg:grid-cols-2">
 
-      <Skeleton className="h-80 rounded-3xl" />
+        <Skeleton className="h-80 rounded-3xl dark:bg-slate-800" />
 
-      <Skeleton className="h-80 rounded-3xl" />
+        <Skeleton className="h-80 rounded-3xl dark:bg-slate-800" />
 
-      <Skeleton className="h-80 rounded-3xl lg:col-span-2" />
+        <Skeleton className="h-80 rounded-3xl lg:col-span-2 dark:bg-slate-800" />
 
-    </div>
-  );
-}
+      </div>
+    );
+  }
 
   if (!analytics) {
     return (
-      <div className="rounded-3xl bg-white p-6 shadow-lg">
-        <h2 className="text-2xl font-bold">
+      <div
+        className="
+          rounded-3xl
+          border
+          border-slate-200
+          bg-white
+          p-6
+          shadow-lg
+
+          transition-colors
+          duration-300
+
+          dark:border-slate-800
+          dark:bg-slate-900
+        "
+      >
+        <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
           Analytics Charts
         </h2>
 
-        <div className="py-16 text-center text-slate-500">
+        <div className="py-16 text-center text-slate-500 dark:text-slate-400">
           Unable to load charts.
         </div>
       </div>
@@ -113,9 +128,23 @@ export const AnalyticsCharts = () => {
 
       {/* Area Chart */}
 
-      <div className="rounded-3xl bg-white p-6 shadow-lg">
+      <div
+        className="
+          rounded-3xl
+          border
+          border-slate-200
+          bg-white
+          p-6
+          shadow-lg
 
-        <h2 className="mb-5 text-2xl font-bold">
+          transition-colors
+          duration-300
+
+          dark:border-slate-800
+          dark:bg-slate-900
+        "
+      >
+        <h2 className="mb-5 text-2xl font-bold text-slate-900 dark:text-slate-100">
           Money Flow
         </h2>
 
@@ -161,9 +190,23 @@ export const AnalyticsCharts = () => {
 
       {/* Pie Chart */}
 
-      <div className="rounded-3xl bg-white p-6 shadow-lg">
+      <div
+        className="
+          rounded-3xl
+          border
+          border-slate-200
+          bg-white
+          p-6
+          shadow-lg
 
-        <h2 className="mb-5 text-2xl font-bold">
+          transition-colors
+          duration-300
+
+          dark:border-slate-800
+          dark:bg-slate-900
+        "
+      >
+        <h2 className="mb-5 text-2xl font-bold text-slate-900 dark:text-slate-100">
           Wallet Overview
         </h2>
 
@@ -199,11 +242,27 @@ export const AnalyticsCharts = () => {
 
       </div>
 
-      {/* Bar Chart */}
+            {/* Bar Chart */}
 
-      <div className="rounded-3xl bg-white p-6 shadow-lg lg:col-span-2">
+            <div
+        className="
+          rounded-3xl
+          border
+          border-slate-200
+          bg-white
+          p-6
+          shadow-lg
 
-        <h2 className="mb-5 text-2xl font-bold">
+          transition-colors
+          duration-300
+
+          dark:border-slate-800
+          dark:bg-slate-900
+
+          lg:col-span-2
+        "
+      >
+        <h2 className="mb-5 text-2xl font-bold text-slate-900 dark:text-slate-100">
           Statistics
         </h2>
 

@@ -24,6 +24,7 @@ export const Button = ({
         items-center
         justify-center
         gap-2
+
         rounded-xl
 
         bg-gradient-to-r
@@ -31,8 +32,11 @@ export const Button = ({
         to-violet-600
 
         py-4
+
         font-semibold
         text-white
+
+        shadow-md
 
         transition-all
         duration-300
@@ -48,7 +52,7 @@ export const Button = ({
         focus:outline-none
         focus:ring-4
         focus:ring-indigo-300
-        dark:focus:ring-indigo-900
+        dark:focus:ring-indigo-800
       "
     >
       {loading && (

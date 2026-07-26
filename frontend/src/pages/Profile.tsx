@@ -58,6 +58,16 @@ export const Profile = () => {
     <DashboardLayout title="Profile">
       <div className="space-y-6">
 
+        <div>
+          <h1 className="text-3xl font-bold text-slate-900 dark:text-slate-100 transition-colors duration-300">
+            Profile
+          </h1>
+
+          <p className="mt-2 text-slate-500 dark:text-slate-400 transition-colors duration-300">
+            Manage your account information and security.
+          </p>
+        </div>
+
         <ProfileHeader
           firstName={user?.firstName ?? ""}
           lastName={user?.lastName ?? ""}

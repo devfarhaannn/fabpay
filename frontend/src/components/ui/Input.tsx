@@ -32,13 +32,10 @@ export const Input = ({
     switch (icon) {
       case "email":
         return Mail;
-
       case "search":
         return Search;
-
       case "money":
         return IndianRupee;
-
       default:
         return User;
     }
@@ -48,7 +45,6 @@ export const Input = ({
 
   return (
     <div className="mb-5">
-
       <label className="mb-2 block text-sm font-semibold text-slate-700 dark:text-slate-300">
         {label}
       </label>
@@ -66,17 +62,16 @@ export const Input = ({
           ${
             disabled
               ? "bg-slate-100 dark:bg-slate-800"
-              : "bg-white dark:bg-slate-900 focus-within:ring-2 focus-within:ring-indigo-500"
+              : "bg-white dark:bg-slate-800"
           }
 
           ${
             error
-              ? "border-red-500"
-              : "border-slate-300 dark:border-slate-700"
+              ? "border-red-500 focus-within:ring-2 focus-within:ring-red-500/20"
+              : "border-slate-300 dark:border-slate-700 focus-within:border-indigo-500 dark:focus-within:border-indigo-500 focus-within:ring-2 focus-within:ring-indigo-500/20"
           }
         `}
       >
-
         <Icon
           size={20}
           className="text-slate-400 dark:text-slate-500"
@@ -97,7 +92,7 @@ export const Input = ({
             outline-none
 
             text-slate-900
-            dark:text-white
+            dark:text-slate-100
 
             placeholder:text-slate-400
             dark:placeholder:text-slate-500
@@ -107,7 +102,6 @@ export const Input = ({
             dark:disabled:text-slate-400
           "
         />
-
       </div>
 
       {error && (
@@ -115,7 +109,6 @@ export const Input = ({
           {error}
         </p>
       )}
-
     </div>
   );
 };

@@ -34,8 +34,7 @@ export const Transfer = () => {
 
   const [loading, setLoading] = useState(false);
 
-  const [showSuccess, setShowSuccess] =
-    useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
 
   const [transaction, setTransaction] =
     useState<ReceiptTransaction | null>(null);
@@ -95,14 +94,17 @@ export const Transfer = () => {
     <>
       <DashboardLayout title="Transfer Money">
         <div className="space-y-6">
+
           <div>
-            <h1 className="text-3xl font-bold text-slate-900">
+
+            <h1 className="text-3xl font-bold text-slate-900 dark:text-slate-100 transition-colors duration-300">
               Transfer Money
             </h1>
 
-            <p className="mt-2 text-slate-500">
+            <p className="mt-2 text-slate-500 dark:text-slate-400 transition-colors duration-300">
               Send money securely to your contacts.
             </p>
+
           </div>
 
           <div className="grid gap-6 lg:grid-cols-3">

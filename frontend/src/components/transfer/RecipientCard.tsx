@@ -14,17 +14,48 @@ export const RecipientCard = ({
   onChange,
 }: RecipientCardProps) => {
   return (
-    <div className="rounded-3xl bg-white p-6 shadow-lg">
+    <div
+      className="
+        rounded-3xl
 
+        border
+        border-slate-200
+
+        bg-white
+
+        p-6
+
+        shadow-lg
+
+        transition-colors
+        duration-300
+
+        dark:border-slate-800
+        dark:bg-slate-900
+      "
+    >
       <div className="mb-5 flex items-center justify-between">
 
-        <h2 className="text-2xl font-bold">
+        <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
           Recipient
         </h2>
 
         <button
           onClick={onChange}
-          className="text-sm font-semibold text-indigo-600 transition hover:text-indigo-700"
+          className="
+            text-sm
+            font-semibold
+
+            text-indigo-600
+
+            transition-all
+            duration-300
+
+            hover:text-indigo-700
+
+            dark:text-indigo-400
+            dark:hover:text-indigo-300
+          "
         >
           Change
         </button>
@@ -40,15 +71,15 @@ export const RecipientCard = ({
 
         <div>
 
-          <h3 className="text-xl font-semibold">
+          <h3 className="text-xl font-semibold text-slate-900 dark:text-slate-100">
             {user.firstName} {user.lastName}
           </h3>
 
-          <p className="text-slate-500">
+          <p className="text-slate-500 dark:text-slate-400">
             {user.email}
           </p>
 
-          <div className="mt-3 flex items-center gap-2 text-green-600">
+          <div className="mt-3 flex items-center gap-2 text-green-600 dark:text-green-400">
 
             <CheckCircle2 size={18} />
 

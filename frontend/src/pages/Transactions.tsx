@@ -58,7 +58,7 @@ export const Transactions = () => {
   if (loading) {
     return (
       <DashboardLayout title="Transactions">
-        <div className="py-20 text-center text-slate-500">
+        <div className="py-20 text-center text-slate-500 dark:text-slate-400 transition-colors duration-300">
           Loading transactions...
         </div>
       </DashboardLayout>
@@ -70,11 +70,11 @@ export const Transactions = () => {
       <div className="space-y-6">
 
         <div>
-          <h1 className="text-3xl font-bold text-slate-900">
+          <h1 className="text-3xl font-bold text-slate-900 dark:text-slate-100 transition-colors duration-300">
             Transactions
           </h1>
 
-          <p className="mt-2 text-slate-500">
+          <p className="mt-2 text-slate-500 dark:text-slate-400 transition-colors duration-300">
             View your payment history.
           </p>
         </div>

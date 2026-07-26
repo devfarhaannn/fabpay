@@ -17,18 +17,20 @@ export const DashboardLayout = ({
       className="
         flex
         min-h-screen
+
         bg-slate-100
         text-slate-900
-        transition-colors
-        duration-300
 
         dark:bg-slate-950
-        dark:text-white
+        dark:text-slate-100
+
+        transition-colors
+        duration-300
       "
     >
       <Sidebar />
 
-      <div className="flex flex-1 flex-col overflow-hidden">
+      <div className="flex min-w-0 flex-1 flex-col">
 
         <Topbar title={title} />
 
@@ -36,6 +38,7 @@ export const DashboardLayout = ({
           className="
             flex-1
             overflow-y-auto
+
             p-6
             lg:p-8
 
@@ -47,7 +50,6 @@ export const DashboardLayout = ({
         </main>
 
       </div>
-
     </div>
   );
 };

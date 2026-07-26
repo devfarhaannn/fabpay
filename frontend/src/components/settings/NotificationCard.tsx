@@ -56,9 +56,9 @@ export const NotificationCard = () => {
   };
 
   return (
-    <div className="rounded-3xl bg-white p-6 shadow-lg">
+    <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-lg transition-colors duration-300 dark:border-slate-800 dark:bg-slate-900">
 
-      <h2 className="mb-6 text-2xl font-bold">
+      <h2 className="mb-6 text-2xl font-bold text-slate-900 dark:text-slate-100">
         Notifications
       </h2>
 
@@ -104,22 +104,24 @@ const SettingRow = ({
 
       <div className="flex items-center gap-4">
 
-        <Bell className="text-indigo-600" />
+        <Bell className="text-indigo-600 dark:text-indigo-400" />
 
-        <span>{title}</span>
+        <span className="font-medium text-slate-900 dark:text-slate-100">
+          {title}
+        </span>
 
       </div>
 
       <button
         onClick={onChange}
-        className={`flex h-7 w-14 items-center rounded-full transition ${
+        className={`flex h-7 w-14 items-center rounded-full transition-all duration-300 ${
           checked
             ? "bg-green-500"
-            : "bg-slate-300"
+            : "bg-slate-300 dark:bg-slate-700"
         }`}
       >
         <div
-          className={`h-6 w-6 rounded-full bg-white transition-transform duration-300 ${
+          className={`h-6 w-6 rounded-full bg-white shadow transition-transform duration-300 ${
             checked
               ? "translate-x-7"
               : "translate-x-1"

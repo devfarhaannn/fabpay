@@ -57,7 +57,7 @@ export const ProfileInfo = ({
       if (axios.isAxiosError(error)) {
         toast.error(
           error.response?.data?.message ??
-          "Failed to update profile."
+            "Failed to update profile."
         );
       } else {
         toast.error("Failed to update profile.");
@@ -68,8 +68,27 @@ export const ProfileInfo = ({
   };
 
   return (
-    <div className="rounded-3xl bg-white p-6 shadow-lg">
-      <h2 className="mb-6 text-2xl font-bold">
+    <div
+      className="
+        rounded-3xl
+
+        border
+        border-slate-200
+
+        bg-white
+
+        p-6
+
+        shadow-lg
+
+        transition-colors
+        duration-300
+
+        dark:border-slate-800
+        dark:bg-slate-900
+      "
+    >
+      <h2 className="mb-6 text-2xl font-bold text-slate-900 dark:text-slate-100">
         Personal Information
       </h2>
 
@@ -92,7 +111,7 @@ export const ProfileInfo = ({
         <Input
           label="Email"
           value={email}
-          onChange={() => { }}
+          onChange={() => {}}
           readOnly
           icon="email"
         />
@@ -100,7 +119,7 @@ export const ProfileInfo = ({
         <Input
           label="Phone"
           value={phone || "Not Added"}
-          onChange={() => { }}
+          onChange={() => {}}
           readOnly
         />
 
@@ -117,6 +136,7 @@ export const ProfileInfo = ({
           onClick={handleSave}
         />
       </div>
+
     </div>
   );
 };

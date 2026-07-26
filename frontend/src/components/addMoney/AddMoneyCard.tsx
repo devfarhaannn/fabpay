@@ -34,7 +34,7 @@ export const AddMoneyCard = () => {
 
       toast.success("Money added successfully!");
 
-     navigate(ROUTES.DASHBOARD);
+      navigate(ROUTES.DASHBOARD);
     } catch (error) {
       console.error(error);
 
@@ -45,9 +45,9 @@ export const AddMoneyCard = () => {
   };
 
   return (
-    <div className="mx-auto max-w-lg rounded-3xl bg-white p-8 shadow-lg">
+    <div className="mx-auto max-w-lg rounded-3xl border border-slate-200 bg-white p-8 shadow-lg transition-colors duration-300 dark:border-slate-800 dark:bg-slate-900">
 
-      <h2 className="mb-6 text-3xl font-bold">
+      <h2 className="mb-6 text-3xl font-bold text-slate-900 dark:text-slate-100">
         Add Money
       </h2>
 
