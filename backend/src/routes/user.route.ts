@@ -11,6 +11,12 @@ router.get(
   UserController.search
 );
 
+router.get(
+  "/suggested",
+  authMiddleware,
+  UserController.suggested
+);
+
 router.patch(
   "/change-password",
   authMiddleware,

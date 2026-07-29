@@ -1,8 +1,6 @@
 import api from "./api";
 import type { User } from "../types/user";
 
-
-
 export interface ChangePasswordData {
   currentPassword: string;
   newPassword: string;
@@ -15,32 +13,42 @@ export interface UpdateProfileData {
   phone?: string;
 }
 
-
 export const searchUsers = async (
   query: string
 ): Promise<User[]> => {
-  const response = await api.get("/users/search", {
-    params: {
-      query,
-    },
-  });
+  const response = await api.get(
+    "/users/search",
+    {
+      params: {
+        query,
+      },
+    }
+  );
 
   return response.data.data;
 };
 
+export const getSuggestedUsers =
+  async (): Promise<User[]> => {
+    const response = await api.get(
+      "/users/suggested"
+    );
 
+    return response.data.data;
+  };
 
-export const getProfile = async () => {
-  const response = await api.get("/auth/me");
+export const getProfile =
+  async (): Promise<User> => {
+    const response = await api.get(
+      "/auth/me"
+    );
 
-  return response.data.data;
-};
-
-
+    return response.data.data;
+  };
 
 export const updateProfile = async (
   data: UpdateProfileData
-) => {
+): Promise<User> => {
   const response = await api.patch(
     "/auth/profile",
     data
@@ -48,8 +56,6 @@ export const updateProfile = async (
 
   return response.data.data;
 };
-
-
 
 export const changePassword = async (
   data: ChangePasswordData

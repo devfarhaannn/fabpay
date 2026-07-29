@@ -55,12 +55,45 @@ export class UserService {
     return users;
   }
 
+  static async getSuggestedUsers(
+    currentUserId: string
+  ) {
+    const users = await prisma.user.findMany({
+      where: {
+        id: {
+          not: currentUserId,
+        },
+
+        username: {
+          startsWith: "demo_",
+          mode: "insensitive",
+        },
+      },
+
+      select: {
+        id: true,
+        firstName: true,
+        lastName: true,
+        username: true,
+        email: true,
+        avatar: true,
+      },
+
+      orderBy: {
+        firstName: "asc",
+      },
+
+      take: 4,
+    });
+
+    return users;
+  }
+
   static async changePassword(
     userId: string,
     currentPassword: string,
     newPassword: string
   ) {
-   
     if (!currentPassword || !newPassword) {
       throw new Error(
         "Current password and new password are required."
@@ -73,13 +106,11 @@ export class UserService {
       );
     }
 
-   
     if (newPassword.length < 8) {
       throw new Error(
         "Password must be at least 8 characters."
       );
     }
-
 
     if (newPassword.length > 50) {
       throw new Error(
@@ -87,7 +118,6 @@ export class UserService {
       );
     }
 
-   
     if (!/[A-Z]/.test(newPassword)) {
       throw new Error(
         "Password must contain at least one uppercase letter."
@@ -100,20 +130,17 @@ export class UserService {
       );
     }
 
- 
     if (!/[0-9]/.test(newPassword)) {
       throw new Error(
         "Password must contain at least one number."
       );
     }
 
-  
     if (!/[^A-Za-z0-9]/.test(newPassword)) {
       throw new Error(
         "Password must contain at least one special character."
       );
     }
-
 
     const user = await prisma.user.findUnique({
       where: {
@@ -125,7 +152,6 @@ export class UserService {
       throw new Error("User not found.");
     }
 
-  
     const isPasswordCorrect =
       await bcrypt.compare(
         currentPassword,
@@ -137,7 +163,6 @@ export class UserService {
         "Current password is incorrect."
       );
     }
-
 
     const isSameAsOldPassword =
       await bcrypt.compare(
@@ -151,10 +176,8 @@ export class UserService {
       );
     }
 
-  
     const hashedPassword =
       await bcrypt.hash(newPassword, 10);
-
 
     await prisma.user.update({
       where: {

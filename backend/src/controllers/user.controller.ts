@@ -35,6 +35,33 @@ export class UserController {
     }
   }
 
+  static async suggested(
+    req: Request,
+    res: Response
+  ) {
+    try {
+      const userId = req.userId!;
+
+      const users =
+        await UserService.getSuggestedUsers(
+          userId
+        );
+
+      return res.status(200).json({
+        success: true,
+        data: users,
+      });
+    } catch (error) {
+      return res.status(400).json({
+        success: false,
+        message:
+          error instanceof Error
+            ? error.message
+            : "Something went wrong",
+      });
+    }
+  }
+
   static async changePassword(
     req: Request,
     res: Response
@@ -42,11 +69,12 @@ export class UserController {
     try {
       const userId = req.userId!;
 
-      
       const {
         currentPassword,
         newPassword,
-      } = changePasswordSchema.parse(req.body);
+      } = changePasswordSchema.parse(
+        req.body
+      );
 
       await UserService.changePassword(
         userId,
@@ -56,7 +84,8 @@ export class UserController {
 
       return res.status(200).json({
         success: true,
-        message: "Password updated successfully.",
+        message:
+          "Password updated successfully.",
       });
     } catch (error) {
       return res.status(400).json({
