@@ -2,31 +2,52 @@ import { z } from "zod";
 
 export const changePasswordSchema = z
   .object({
+    
     currentPassword: z
       .string()
-      .min(6, "Current password must be at least 6 characters"),
+      .min(1, "Current password is required"),
 
+    
     newPassword: z
       .string()
-      .min(6, "New password must be at least 6 characters")
-      .max(50, "Password cannot exceed 50 characters")
+      .min(
+        8,
+        "New password must be at least 8 characters"
+      )
+      .max(
+        50,
+        "Password cannot exceed 50 characters"
+      )
       .regex(
-        /^(?=.*[A-Za-z])(?=.*\d).+$/,
-        "Password must contain at least one letter and one number"
+        /[A-Z]/,
+        "Password must contain at least one uppercase letter"
+      )
+      .regex(
+        /[a-z]/,
+        "Password must contain at least one lowercase letter"
+      )
+      .regex(
+        /[0-9]/,
+        "Password must contain at least one number"
+      )
+      .regex(
+        /[^A-Za-z0-9]/,
+        "Password must contain at least one special character"
       ),
 
     confirmPassword: z
       .string()
-      .min(6, "Please confirm your password"),
+      .min(1, "Please confirm your password"),
   })
   .refine(
-    (data) => data.newPassword === data.confirmPassword,
+    (data) =>
+      data.newPassword ===
+      data.confirmPassword,
     {
       message: "Passwords do not match",
       path: ["confirmPassword"],
     }
   );
 
-export type ChangePasswordFormData = z.infer<
-  typeof changePasswordSchema
->;
+export type ChangePasswordFormData =
+  z.infer<typeof changePasswordSchema>;

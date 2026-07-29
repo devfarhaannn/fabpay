@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const updateProfileSchema = z.object({
+export const profileSchema = z.object({
   firstName: z
     .string()
     .trim()
@@ -26,14 +26,10 @@ export const updateProfileSchema = z.object({
   phone: z
     .string()
     .trim()
-    .regex(
-      /^\+?[0-9]{10,15}$/,
-      "Enter a valid phone number"
-    )
-    .optional()
-    .or(z.literal("")),
+    .max(15, "Phone number cannot exceed 15 characters")
+    .optional(),
 });
 
-export type UpdateProfileInput = z.infer<
-  typeof updateProfileSchema
+export type ProfileFormData = z.infer<
+  typeof profileSchema
 >;

@@ -1,21 +1,56 @@
 import { z } from "zod";
 
+const passwordSchema = z
+  .string()
+  .min(
+    8,
+    "Password must be at least 8 characters"
+  )
+  .regex(
+    /[A-Z]/,
+    "Password must contain at least one uppercase letter"
+  )
+  .regex(
+    /[a-z]/,
+    "Password must contain at least one lowercase letter"
+  )
+  .regex(
+    /[0-9]/,
+    "Password must contain at least one number"
+  )
+  .regex(
+    /[^A-Za-z0-9]/,
+    "Password must contain at least one special character"
+  );
+
 export const signupSchema = z.object({
   firstName: z
     .string()
     .trim()
-    .min(2, "First name must be at least 2 characters"),
+    .min(
+      2,
+      "First name must be at least 2 characters"
+    ),
 
   lastName: z
     .string()
     .trim()
-    .min(2, "Last name must be at least 2 characters"),
+    .min(
+      2,
+      "Last name must be at least 2 characters"
+    ),
 
   username: z
     .string()
     .trim()
-    .min(3, "Username must be at least 3 characters")
-    .max(20, "Username cannot exceed 20 characters")
+    .min(
+      3,
+      "Username must be at least 3 characters"
+    )
+    .max(
+      20,
+      "Username cannot exceed 20 characters"
+    )
     .regex(
       /^[a-zA-Z0-9_]+$/,
       "Username can only contain letters, numbers, and underscores"
@@ -26,9 +61,7 @@ export const signupSchema = z.object({
     .trim()
     .email("Invalid email address"),
 
-  password: z
-    .string()
-    .min(6, "Password must be at least 6 characters"),
+  password: passwordSchema,
 });
 
 export const signinSchema = z.object({
@@ -37,5 +70,8 @@ export const signinSchema = z.object({
     .trim()
     .email("Invalid email address"),
 
-  password: z.string(),
+  password: z.string().min(
+    1,
+    "Password is required"
+  ),
 });

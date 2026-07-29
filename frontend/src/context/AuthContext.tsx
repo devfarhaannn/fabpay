@@ -10,19 +10,17 @@ import {
   isAuthenticated,
 } from "../services/auth.service";
 
-interface User {
-  id: string;
-  firstName: string;
-  lastName: string;
-  email: string;
+import type { User } from "../types/user";
 
+
+interface AuthUser extends User {
   account?: {
     balance: number;
   };
 }
 
 interface AuthContextType {
-  user: User | null;
+  user: AuthUser | null;
   loading: boolean;
   refreshUser: () => Promise<void>;
 }
@@ -36,7 +34,7 @@ export const AuthProvider = ({
   children: React.ReactNode;
 }) => {
   const [user, setUser] =
-    useState<User | null>(null);
+    useState<AuthUser | null>(null);
 
   const [loading, setLoading] =
     useState(true);
@@ -47,7 +45,6 @@ export const AuthProvider = ({
 
       if (!isAuthenticated()) {
         setUser(null);
-        setLoading(false);
         return;
       }
 
@@ -55,7 +52,11 @@ export const AuthProvider = ({
 
       setUser(profile);
     } catch (error) {
-      console.error(error);
+      console.error(
+        "Failed to refresh user:",
+        error
+      );
+
       setUser(null);
     } finally {
       setLoading(false);
